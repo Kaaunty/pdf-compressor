@@ -1,7 +1,7 @@
 @echo off
 title PDF Compressor Launcher
 echo ==================================================
-echo          ANTIGRAVITY PDF COMPRESSOR
+echo                PDF COMPRESSOR
 echo ==================================================
 echo.
 

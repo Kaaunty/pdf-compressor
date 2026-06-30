@@ -1,4 +1,4 @@
-# Antigravity PDF Compressor
+# PDF Compressor
 
 Um aplicativo web moderno, elegante e de alta performance para compactação de arquivos PDF. Todo o processamento é feito **100% localmente no seu computador**, garantindo total privacidade e segurança dos seus dados, sem que nenhum arquivo seja enviado para a nuvem.
 
