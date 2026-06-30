@@ -18,9 +18,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+import tempfile
+
 # Directories
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMP_DIR = os.path.join(BASE_DIR, "temp")
+TEMP_DIR = os.path.join(tempfile.gettempdir(), "pdf_compressor_temp")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 # Ensure directories exist
@@ -211,4 +213,5 @@ if __name__ == "__main__":
     host = os.getenv("HOST", "127.0.0.1")
     port = int(os.getenv("PORT", "8000"))
     print(f"Starting PDF Compressor local server on http://{host}:{port}")
-    uvicorn.run("main:app", host=host, port=port, reload=True)
+    # Disable reload in production to prevent server restart triggers on file writes
+    uvicorn.run("main:app", host=host, port=port, reload=False)

@@ -165,9 +165,8 @@ def compress_pdf(
         
     doc.save(
         output_path,
-        garbage=4,
-        deflate=True,
-        clean=True
+        garbage=3,
+        deflate=True
     )
     doc.close()
     
