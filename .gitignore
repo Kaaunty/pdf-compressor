@@ -1,0 +1,15 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Application Temp Storage
+temp/
+
+# IDEs & System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

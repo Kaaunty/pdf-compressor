@@ -1,0 +1,12 @@
+services:
+  pdf-compressor:
+    build: .
+    container_name: pdf-compressor
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+    volumes:
+      - ./temp:/app/temp
+    restart: unless-stopped

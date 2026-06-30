@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compactador de PDF Local - Comprima PDFs com Segurança</title>
+    <meta name="description" content="Comprima seus arquivos PDF de forma rápida, eficiente e totalmente privada. Todo o processamento é feito localmente no seu computador.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i data-lucide="file-archive"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-brand">Antigravity</span>
+                    <span class="logo-app">PDF Compress</span>
+                </div>
+            </div>
+            <div class="badge-local">
+                <i data-lucide="shield-check"></i>
+                <span>100% Local e Seguro</span>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <section class="intro-section">
+                <h1>Compactador de PDF Inteligente</h1>
+                <p>Reduza o tamanho dos seus arquivos PDF otimizando imagens e limpando metadados sem enviar nenhum dado para a nuvem.</p>
+            </section>
+
+            <!-- Drop Zone for Files -->
+            <section class="upload-section" id="drop-zone">
+                <input type="file" id="file-input" accept=".pdf" class="hidden-input">
+                <div class="upload-card">
+                    <div class="upload-icon-wrapper">
+                        <i data-lucide="upload-cloud" class="upload-icon"></i>
+                    </div>
+                    <div class="upload-text">
+                        <h3>Arraste e solte seu PDF aqui</h3>
+                        <p>ou clique para navegar nos seus arquivos</p>
+                    </div>
+                    <div class="upload-info">
+                        <span>Apenas arquivos .pdf são suportados</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workspace (Settings & Processing) -->
+            <section class="workspace-section hidden" id="workspace">
+                <div class="workspace-grid">
+                    <!-- File Info Card -->
+                    <div class="card file-info-card">
+                        <div class="card-header">
+                            <i data-lucide="file-text"></i>
+                            <h2>Arquivo Selecionado</h2>
+                        </div>
+                        <div class="file-details">
+                            <div class="file-icon-large">
+                                <i data-lucide="file"></i>
+                            </div>
+                            <div class="file-meta">
+                                <span class="file-name" id="selected-file-name">documento.pdf</span>
+                                <span class="file-size" id="selected-file-size">0.0 MB</span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-text" id="change-file-btn">
+                            <i data-lucide="refresh-cw"></i> Alterar arquivo
+                        </button>
+                    </div>
+
+                    <!-- Compression Settings Card -->
+                    <div class="card settings-card">
+                        <div class="card-header">
+                            <i data-lucide="sliders"></i>
+                            <h2>Ajustes de Compactação</h2>
+                        </div>
+
+                        <!-- Presets -->
+                        <div class="settings-group">
+                            <label class="group-label">Nível de Compactação</label>
+                            <div class="preset-buttons">
+                                <button type="button" class="btn-preset" id="preset-lossless" data-preset="lossless">
+                                    <span class="preset-title">Alta Qualidade</span>
+                                    <span class="preset-desc">Compactação leve</span>
+                                </button>
+                                <button type="button" class="btn-preset active" id="preset-balanced" data-preset="balanced">
+                                    <span class="preset-title">Balanceado</span>
+                                    <span class="preset-desc">Recomendado</span>
+                                </button>
+                                <button type="button" class="btn-preset" id="preset-max" data-preset="max">
+                                    <span class="preset-title">Tamanho Mínimo</span>
+                                    <span class="preset-desc">Compactação agressiva</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sliders & Toggles -->
+                        <div class="settings-group">
+                            <div class="slider-header">
+                                <label for="quality-slider">Qualidade das Imagens</label>
+                                <span class="slider-value" id="quality-val">70%</span>
+                            </div>
+                            <input type="range" id="quality-slider" min="10" max="100" value="70" class="custom-slider">
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="slider-header">
+                                <label for="scale-slider">Resolução das Imagens (Escala)</label>
+                                <span class="slider-value" id="scale-val">70%</span>
+                            </div>
+                            <input type="range" id="scale-slider" min="10" max="100" value="70" class="custom-slider">
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-item">
+                                <div class="toggle-info">
+                                    <label for="grayscale-toggle">Tons de cinza</label>
+                                    <span>Remove cores das imagens para economizar espaço</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="grayscale-toggle">
+                                    <span class="slider-round"></span>
+                                </label>
+                            </div>
+
+                            <div class="toggle-item">
+                                <div class="toggle-info">
+                                    <label for="metadata-toggle">Remover metadados</label>
+                                    <span>Remove dados do autor, programa criador e datas</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="metadata-toggle" checked>
+                                    <span class="slider-round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-primary btn-block" id="compress-btn">
+                            <i data-lucide="play"></i> Comprimir PDF
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading / Processing state -->
+            <section class="processing-section hidden" id="processing-state">
+                <div class="processing-card">
+                    <div class="spinner-wrapper">
+                        <div class="spinner"></div>
+                    </div>
+                    <h2 id="processing-title">Compactando seu arquivo...</h2>
+                    <p id="processing-subtitle">Isso pode levar alguns segundos dependendo do tamanho das imagens.</p>
+                    
+                    <div class="progress-steps">
+                        <div class="step active" id="step-upload">
+                            <i data-lucide="check-circle-2"></i>
+                            <span>Carregando arquivo</span>
+                        </div>
+                        <div class="step" id="step-process">
+                            <i data-lucide="circle"></i>
+                            <span>Otimizando imagens e streams</span>
+                        </div>
+                        <div class="step" id="step-finalize">
+                            <i data-lucide="circle"></i>
+                            <span>Finalizando documento</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Dashboard -->
+            <section class="results-section hidden" id="results-state">
+                <div class="results-container">
+                    <div class="success-animation">
+                        <div class="check-icon">
+                            <i data-lucide="check"></i>
+                        </div>
+                    </div>
+                    
+                    <h2>Compactação Concluída!</h2>
+                    <p class="results-subtitle">O seu PDF foi otimizado localmente com sucesso.</p>
+
+                    <!-- Comparison Dashboard -->
+                    <div class="stats-dashboard">
+                        <div class="stat-card">
+                            <span class="stat-label">Tamanho Original</span>
+                            <span class="stat-value" id="stat-original">0.0 MB</span>
+                        </div>
+                        <div class="stat-card highlight">
+                            <span class="stat-label">Tamanho Compactado</span>
+                            <span class="stat-value" id="stat-compressed">0.0 MB</span>
+                            <span class="stat-badge" id="stat-percent">-0%</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Espaço Salvo</span>
+                            <span class="stat-value" id="stat-saved">0.0 MB</span>
+                        </div>
+                    </div>
+
+                    <!-- Details Stats -->
+                    <div class="details-list">
+                        <div class="detail-row">
+                            <span class="detail-label">Nome do arquivo</span>
+                            <span class="detail-val" id="detail-filename">documento_comprimido.pdf</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Imagens otimizadas</span>
+                            <span class="detail-val" id="detail-images">0 de 0</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Metadados</span>
+                            <span class="detail-val" id="detail-metadata">Removidos</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="#" class="btn-primary" id="download-btn">
+                            <i data-lucide="download"></i> Baixar PDF Compactado
+                        </a>
+                        <button type="button" class="btn-secondary" id="reset-btn">
+                            <i data-lucide="arrow-left"></i> Comprimir outro arquivo
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>Antigravity PDF Compressor • Processamento 100% privado local.</p>
+        </footer>
+    </div>
+
+    <!-- Initialize Lucide icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="/static/index.js"></script>
+</body>
+</html>
